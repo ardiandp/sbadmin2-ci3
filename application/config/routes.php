@@ -52,3 +52,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+//pengaturan route API 
+$route['api/barang'] = 'barang/index';
+$route['api/barang/(:num)'] = 'barang/view/$1';
+$route['api/barang/create'] = 'barang/create';
+$route['api/barang/update/(:num)'] = 'barang/update/$1';
+$route['api/barang/delete/(:num)'] = 'barang/delete/$1';
+
