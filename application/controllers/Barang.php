@@ -26,23 +26,27 @@ class Barang extends CI_Controller
     }
 
     public function create()
-    {
-        $this->form_validation->set_rules('kode', 'Kode', 'required');
-        $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required');
-        $this->form_validation->set_rules('harga', 'Harga', 'required|numeric');
+{
+    $input = json_decode(trim(file_get_contents('php://input')), true);
 
-        if ($this->form_validation->run() === FALSE) {
-            echo json_encode(array('status' => 'error', 'message' => validation_errors()));
-        } else {
-            $data = array(
-                'kode' => $this->input->post('kode'),
-                'nama_barang' => $this->input->post('nama_barang'),
-                'harga' => $this->input->post('harga')
-            );
-            $this->Barang_model->insert_barang($data);
-            echo json_encode(array('status' => 'success', 'message' => 'Data barang berhasil ditambahkan'));
-        }
+    $this->form_validation->set_data($input);
+    $this->form_validation->set_rules('kode', 'Kode', 'required');
+    $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required');
+    $this->form_validation->set_rules('harga', 'Harga', 'required|numeric');
+
+    if ($this->form_validation->run() === FALSE) {
+        echo json_encode(array('status' => 'error', 'message' => validation_errors()));
+    } else {
+        $data = array(
+            'kode' => $input['kode'],
+            'nama_barang' => $input['nama_barang'],
+            'harga' => $input['harga']
+        );
+        $this->Barang_model->insert_barang($data);
+        echo json_encode(array('status' => 'success', 'message' => 'Data barang berhasil ditambahkan'));
     }
+}
+
 
     public function update($id)
     {
