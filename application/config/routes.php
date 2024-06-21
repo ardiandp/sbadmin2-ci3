@@ -60,3 +60,6 @@ $route['api/barang/create'] = 'barang/create';
 $route['api/barang/update/(:num)'] = 'barang/update/$1';
 $route['api/barang/delete/(:num)'] = 'barang/delete/$1';
 
+
+
+$route['dashboard'] = 'dashboard';
